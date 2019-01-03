@@ -1,0 +1,45 @@
+{% extends "page.html" %}
+
+{% block title %}InMoov - Ajouter un BOT {% endblock %}
+{% block botName %} myBOT's{% endblock %}
+{% block titlePage %}Gestion des BOT's{% endblock %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+			<h2><i class="fa fa-check"></i> SUPPRIMER</h2>
+			<ul class="nav navbar-right panel_toolbox">
+				<!-- toolbox éventuelle -->
+			</ul>
+			<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+			<br>
+			<form class="form-horizontal form-label-left" action="delBot" method="post">
+				<div class="form-group">
+				<label class="control-label col-md-3 col-sm-3 col-xs-12">Liste</label>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+                          <div class="input-group">
+                            <select id="delBotSelect" class="form-control">
+                            {% for bot in listBots %}
+                            <option>{{bot.botModel}}({{bot.botName}})</option>
+							{% endfor %}
+                          </select>
+                            <span class="input-group-btn">
+                               <button type="submit" class="btn btn-warning">Supprimer</button>
+                            </span>
+                          </div>                      
+                </div>
+				</div>				
+			</form>			
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+{% block addJS %}
+<script src="/static/myBuild/js/botMgr.js"></script>
+{% endblock %}

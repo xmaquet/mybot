@@ -1,0 +1,32 @@
+{% extends "page.html" %}
+
+{% block title %}InMoov - Ajouter un BOT {% endblock %}
+{% block botName %} myBOT's{% endblock %}
+{% block titlePage %}Gestion des BOT's{% endblock %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+			<h2><i class="fa fa-check"></i> Ajouter</h2>
+			<ul class="nav navbar-right panel_toolbox">
+				<!-- toolbox éventuelle -->
+			</ul>
+			<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+			<br>
+				<form class="form-horizontal form-label-left" action="addBot" method="get">
+				{{form.as_p}}
+				<button type="submit" class="btn btn-success">Ajouter</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+{% block addJS %}
+<script src="/static/myBuild/js/botMgr.js"></script>
+{% endblock %}

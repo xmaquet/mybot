@@ -1,0 +1,60 @@
+{% extends "page.html" %}
+
+{% block title %}InMoov - Sélection d'un BOT {% endblock %}
+{% block botName %} myBOT's{% endblock %}
+{% block titlePage %}Gestion des BOT's{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+			<h2><i class="fa fa-check"></i> SELECTIONNER</h2>
+			<ul class="nav navbar-right panel_toolbox">
+				<!-- toolbox éventuelle -->
+			</ul>
+			<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+			<br>
+			<form class="form-horizontal form-label-left" action="dashboard/" method="get">
+				<div class="form-group">
+				<label class="control-label col-md-3 col-sm-3 col-xs-12">Choix</label>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+                          <div class="input-group">
+                            <select id="botSelect" class="form-control" name="bot_id">
+							{% for bot in listBots %}
+                            <option value="{{bot.id}}" >{{bot.botModel}}({{bot.botName}})</option>
+							{% endfor %}
+                            </select>
+                            <span class="input-group-btn">
+                               <button type="submit" class="btn btn-success">Sélectionner</button>
+                            </span>
+                          </div>                      
+                </div>
+				</div>				
+			</form>			
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+	 <div class="x_panel">
+	 	<div class="x_title">
+	 	<h2><i class="fa fa-check"></i> Autres actions</h2>
+	 	<div class="clearfix"></div>
+	 	</div>
+	 	<div class="x_content">
+	 	<br>
+	 	<ul>
+	 		<li><a href="addBot">Ajouter un BOT</a></li>
+	 		<li><a href="delBot">Supprimer un BOT</a></li>
+	 	</ul>
+	 	</div>
+	 </div>
+	</div>
+</div>
+{% endblock %}
+{% block addJS %}
+<script src="/static/myBuild/js/botMgr.js"></script>
+{% endblock %}

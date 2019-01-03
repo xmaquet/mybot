@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap -->
+    <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/static/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="/static/build/css/custom.min.css" rel="stylesheet">
+    <!-- specific CSS-->
+    {% block addCSS %}{% endblock %}
+  </head>
+  <body class="nav-md footer_fixed" id="">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="/selectBot" class="site_title"><i class="fa fa-chevron-circle-right"></i> <span>{% block botName %}{% endblock %}</span></a>
+              
+            </div>
+            <div class="clearfix"></div>
+            <!-- menu profile quick info -->
+            {% block profile_menu %}{% endblock %}
+            
+            <!-- /menu profile quick info -->
+            <br />
+            <!-- sidebar menu -->
+            {% block sideBar_menu %}{% endblock %}
+            <!-- /sidebar menu -->
+          </div>
+        </div>
+        <!-- top navigation -->
+        {% block top_navigation %}{% endblock %}
+        
+        <!-- /top navigation -->
+
+        <!-- page content -->
+           <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>{% block titlePage %}{% endblock %} {{bot_id}}</h3>
+                <h2>{{current_date_time}}</h2>
+              </div>
+              <!-- ici le contenu de la page -->
+              {% block content %}{% endblock %}
+            <div class="clearfix"></div> 
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            <a href="admin" title="Administration de Django">Admin {{botName}} Control Center by XM </a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+    <!-- jQuery -->
+    <script src="/static/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="/static/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="/static/nprogress/nprogress.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="/static/build/js/custom.min.js"></script>
+    <!-- specific JS -->
+    {% block addJS %}{% endblock %}
+  </body>
+</html>

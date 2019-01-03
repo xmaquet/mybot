@@ -1,0 +1,61 @@
+{% extends "page.html" %}
+
+{% block title %}Dashboard {% endblock %}
+{% block titlePage %}Dashboard du bot : <b>{{bot_model}}({{bot_name}})</b> {% endblock %}
+{% block content %}{% endblock %}
+{% block botName %}{{bot_model}}{% endblock %}
+{% block sideBar_menu %}
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <!-- ici le menu de nav side -->
+              <div class="menu_section">
+              <h3>Contrôle direct</h3>
+              {% block mnu_part_ctrl %}{% endblock %}
+              </div>
+              <div class="menu_section">
+              <h3>Programmation</h3>
+              {% block mnu_prog %}{% endblock %}
+              </div>
+              <div class="menu_section">
+              <h3>Gestion</h3>
+              {% block mnu_management %}{% endblock %}
+              </div>
+            </div>
+{% endblock %}
+{% block profile_menu %}
+<div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="/static/images/inmoov.jpg" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Propriétaire,</span>
+                <h2>{{bot_owner}}</h2>
+                
+              </div>
+              <div class="clearfix"></div>
+            </div>
+{% endblock %}
+{% block top_navigation %}
+<div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="/static/images/inmoov.jpg" alt="">{{bot_model}}({{bot_name}})
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <!-- ici le menu de nav top-right -->
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="/selectBot">Paramètres</a></li>
+                    <li><a href="/selectBot">Vue d'ensemble</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+ {% endblock %}
