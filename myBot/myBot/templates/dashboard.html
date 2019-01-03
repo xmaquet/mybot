@@ -1,9 +1,9 @@
 {% extends "page.html" %}
 
 {% block title %}Dashboard {% endblock %}
-{% block titlePage %}Dashboard du bot : <b>{{bot_model}}({{bot_name}})</b> {% endblock %}
+{% block titlePage %}Dashboard du bot : <b>{{bot.botModel}} ({{bot.botName}})</b> {% endblock %}
 {% block content %}{% endblock %}
-{% block botName %}{{bot_model}}{% endblock %}
+{% block botName %}{{bot.botModel}}{% endblock %}
 {% block sideBar_menu %}
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <!-- ici le menu de nav side -->
@@ -24,11 +24,11 @@
 {% block profile_menu %}
 <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="/static/images/inmoov.jpg" alt="..." class="img-circle profile_img">
+                <img src="/static/images/robotLogo.PNG" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Propriétaire,</span>
-                <h2>{{bot_owner}}</h2>
+                <h2>{{bot.botOwner}}</h2>
                 
               </div>
               <div class="clearfix"></div>
@@ -45,7 +45,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="/static/images/inmoov.jpg" alt="">{{bot_model}}({{bot_name}})
+                    <img src="/static/images/robotLogo.PNG" alt="">{{bot.botModel}} ({{bot.botName}})
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <!-- ici le menu de nav top-right -->

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 
+
 class Bot(models.Model):
     botModel = models.CharField(
         max_length=50,
@@ -9,11 +10,13 @@ class Bot(models.Model):
     botName = models.CharField(
         max_length=50,
         null=True,
+        blank=True,
         verbose_name = "nom",
         )
     botOwner = models.CharField(
         max_length=100,
         null=True,
+        blank=True,
         verbose_name = "propriétaire",
         )
     locList =(
@@ -27,6 +30,15 @@ class Bot(models.Model):
         verbose_name = "localisation",
         help_text="Local : le Bot est sur la même machine que le système "
         )
+    image = models.ImageField(
+        max_length=255,
+        blank=True,
+        null=True,)
+    
+    reg_date = models.DateField(
+        auto_now_add=True,
+        )
+    
     def __str__(self):
         return self.botModel
     

@@ -7,5 +7,6 @@ class selectBot(forms.Form):
 class BotAddForm(forms.ModelForm):
     class Meta:
         model= Bot
-        fields = '__all__'
+        exclude = ['reg_date']
+        
         

@@ -10,6 +10,14 @@ def selectBot(request):
     return render(request, 'selectBot.html',
                   {'listBots':bots},
                   )
+
+def logBot(request):
+    if len(request.GET) > 0:
+        botId = request.GET.get('bot_id')
+        request.session['logged_bot_id'] = botId
+        return redirect('dashboard/')
+    else:
+        return render(request,'selectBot.html')
     
 def delBot(request):
     bots = Bot.objects.all()
@@ -30,13 +38,11 @@ def addBot(request):
         return render(request, 'addBot.html', {'form':form})
 
 def dashboard(request):
-    botId = request.GET.get('bot_id')
-    bot = Bot.objects.get(pk=botId)
-    parts = Part.objects.get(bot_id=botId)
-    return render(request, 'dashboard.html',
+    if 'logged_bot_id' in request.session:
+        botId = request.session['logged_bot_id']
+        bot = Bot.objects.get(pk=botId)
+        return render(request, 'dashboard.html',
                     {'current_date_time':datetime.now,
-                    'bot_name':bot.botName,
-                    'bot_owner':bot.botOwner,
-                    'bot_model':bot.botModel,
-                    'listParts':parts,}
-                                      )    
+                     'bot':bot,})
+    else:
+        return redirect('/selectBot')    
