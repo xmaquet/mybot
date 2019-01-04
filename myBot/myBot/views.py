@@ -7,8 +7,12 @@ from datetime import datetime
     
 def selectBot(request):
     bots = Bot.objects.all()
+    if 'logged_bot_id' in request.session:
+        botId = request.session['logged_bot_id']
+        bot = Bot.objects.get(pk=botId)
     return render(request, 'selectBot.html',
-                  {'listBots':bots},
+                  {'listBots':bots,
+                   'bot':bot},
                   )
 
 def logBot(request):

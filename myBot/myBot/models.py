@@ -71,6 +71,8 @@ class Controler(models.Model):
         max_length=50,
         null=True,
         blank=False,
+        verbose_name = "adresse",
+        help_text = 'paste or select',
         )
     controlerType = models.ForeignKey(
         'ControlerType',
@@ -78,42 +80,20 @@ class Controler(models.Model):
         null=True,
         verbose_name='type de contrôleur',
         )
-    interface = models.ForeignKey(
-        'Interface',
-        on_delete=models.CASCADE,
-        null=True,
+    typeList = (
+        ('usb','USB-Serial'),
+        ('ip-eth','IP on Ethernet'),
+        ('ip-wifi','IP on Wifi'),
+        )
+    interface = models.CharField(
+        max_length=10,
+        choices=typeList,
+        default='usb',
         verbose_name='type d\'interface',
         )
     def __str__(self):
-        return self.title
-    
-class Interface(models.Model):
-    title = models.CharField(
-        max_length=50,
-        null=False,
-        default='undefined',
-        verbose_name = "intitulé",
-        )
-    code = models.CharField(
-        max_length=20,
-        null=True,
-        )
-    link = models.ForeignKey(
-        'Link',
-        on_delete=models.CASCADE,
-        null=True,
-        )
-    def __str__(self):
-        return self.title
-    
-class Link(models.Model):
-    type = models.CharField(
-        max_length=50,
-        null=False,
-        default='undefined',
-        )
-    def __str__(self):
-        return self.type
+        return self.title   
+
     
 class ControlerType(models.Model):
     brand = models.CharField(
@@ -138,13 +118,16 @@ class Device(models.Model):
         )
     pinNum = models.PositiveIntegerField(
         null=True,
-        blank=True,)
+        blank=True,
+        verbose_name='n° de broche',
+        help_text='donné à titre indicatif',)
     prefix = models.CharField(
         max_length=10,
         null=True,
         blank=False,
         default='undefined',
-        help_text="utilisé dans l\'adressage du device")
+        help_text="utilisé dans l\'adressage du device",
+        verbose_name='préfixe pour l\'adressage',)
     index = models.PositiveIntegerField(
         null=True,
         help_text="combiné au préfixe pour adressage")
@@ -156,10 +139,14 @@ class Servo(Device):
     toggle = models.BooleanField()
     min = models.PositiveIntegerField(
         null=False,
-        default=0,)
+        default=0,
+        verbose_name='valeur minimale',
+        help_text = 'en action, le servo ne pourra pas aller sous cette valeur')
     max = models.PositiveIntegerField(
         null=False,
-        default=180,)
+        default=180,
+        verbose_name='valeur maximale',
+        help_text = 'en action, le servo ne pourra pas aller au-dessus de cette valeur')
     servoType = models.ForeignKey(
         'ServoType',
         on_delete=models.CASCADE,

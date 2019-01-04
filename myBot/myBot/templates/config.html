@@ -46,9 +46,15 @@
                         <a href="/addControler"><button type="button" class="btn btn-primary btn-xs"><span class="fa fa-plus"></span>Ajouter un contrôleur</button></a>
                         </p>
                         <ul>
-                        	{% for controler in controlers %}
-                          		<li>{{controler.title}}
-                          		
+                        	{% for part in parts %}
+                          		<li>{{part.title}}
+                          			<ul>
+                          				{% for controler in controlers %}
+                          					{% if controler.part_id == part.id %}
+                          					<li>{{controler.title}}</li>
+                          					{% endif %}
+                          				{% endfor %}
+                          			</ul>
                           		</li>
                           {% endfor %} 
                         </ul>
