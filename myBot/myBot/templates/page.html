@@ -8,14 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
     <!-- Bootstrap -->
-    <link href="/static/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/font-awesome/css/font-awesome.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="/static/nprogress/nprogress.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="/static/build/css/custom.min.css" rel="stylesheet">
     <!-- specific CSS-->
+    <link href="/static/ion-range-slider/css/ion.rangeSlider.css" rel="stylesheet">
+  
     {% block addCSS %}{% endblock %}
   </head>
   <body class="nav-md footer_fixed" id="">
@@ -39,7 +41,30 @@
           </div>
         </div>
         <!-- top navigation -->
-        {% block top_navigation %}{% endblock %}
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="/static/images/robotLogo.PNG" alt="">{{bot.botModel}} ({{bot.botName}})
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <!-- ici le menu de nav top-right -->
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="/config">Configuration</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/selectBot">Ligne de menu...</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
         
         <!-- /top navigation -->
 
@@ -49,7 +74,6 @@
             <div class="page-title">
               <div class="title_left">
                 <h3>{% block titlePage %}{% endblock %} {{bot_id}}</h3>
-                <h2>{{current_date_time}}</h2>
               </div>
               <!-- ici le contenu de la page -->
               {% block content %}{% endblock %}
@@ -68,9 +92,9 @@
       </div>
     </div>
     <!-- jQuery -->
-    <script src="/static/jquery/dist/jquery.min.js"></script>
+    <script src="/static/jquery/dist/jquery.js"></script>
     <!-- Bootstrap -->
-    <script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap/dist/js/bootstrap.js"></script>
     <!-- FastClick -->
     <script src="/static/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
@@ -78,6 +102,7 @@
     <!-- Custom Theme Scripts -->
     <script src="/static/build/js/custom.min.js"></script>
     <!-- specific JS -->
+    <script src="/static/ion-range-slider/js/ion.rangeSlider.js"></script>
     {% block addJS %}{% endblock %}
   </body>
 </html>

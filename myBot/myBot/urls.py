@@ -16,15 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from myBot.views import dashboard,selectBot,addBot,delBot,logBot
+from myBot.views import dashboard,selectBot,addBot,delBot,logBot,config,addPart,addControler
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('^$', selectBot),
-    url('^dashboard/$', dashboard),
+    url('^dashboard$', dashboard),
     url('^selectBot$', selectBot),
     url('^addBot$', addBot),
     url('^delBot$', delBot),
-    url('^logBot$',logBot)
+    url('^logBot$',logBot),
+    url('^config$',config),
+    url('^addPart$',addPart),
+    url('^addControler$',addControler),
 
 ]

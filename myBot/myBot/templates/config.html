@@ -1,0 +1,156 @@
+{% extends "page.html" %}
+
+{% block title %}Configuration {% endblock %}
+{% block titlePage %}<span class="fa fa-cubes"></span> Configuration du bot : <b>{{bot.botModel}} ({{bot.botName}}){% endblock %}
+{% block content %}
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		              <div class="x_panel">
+                  <div class="x_title">
+                    <h2><i class="fa fa-puzzle-piece"></i> Structure <small>Les éléments structurels décrivent le Bot</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <div class="col-xs-2">
+                      <!-- required for floating -->
+                      <!-- Nav tabs -->
+                      <ul class="nav nav-tabs tabs-left">
+                        <li class="active"><a href="#parts" data-toggle="tab" aria-expanded="true">Parties</a>
+                        </li>
+                        <li class=""><a href="#controls" data-toggle="tab" aria-expanded="false">Contrôleurs</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-xs-10">
+                      <!-- Tab panes -->
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="parts">
+                          <p class="lead">Les parties permettent de regrouper des éléments du Bot
+                          <a href="/addPart"><button type="button" class="btn btn-primary btn-xs"><span class="fa fa-plus"></span>Ajouter une partie</button></a>
+                          </p>                         
+                          <br>
+                          <ul>
+                          {% for part in parts %}
+                          	<li>{{part.title}}</li>
+                          {% endfor %}  
+                          </ul>
+                       
+                        </div>
+                        <div class="tab-pane" id="controls">
+                        <p class="lead">Les contrôleurs et leurs équipements orchestrent les fonctions 
+                        <a href="/addControler"><button type="button" class="btn btn-primary btn-xs"><span class="fa fa-plus"></span>Ajouter un contrôleur</button></a>
+                        </p>
+                        <ul>
+                        	{% for controler in controlers %}
+                          		<li>{{controler.title}}
+                          		
+                          		</li>
+                          {% endfor %} 
+                        </ul>
+                                               
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		              <div class="x_panel">
+                  <div class="x_title">
+                    <h2><i class="fa fa-heart"></i> Fonctions <small>Les fonctions sont des activités élémentaires du Bot (exemple "Majeur de la main gauche")</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    
+                    
+                  <div class="clearfix"></div>
+                  </div>
+                </div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		              <div class="x_panel">
+                  <div class="x_title">
+                    <h2><i class="fa fa-key"></i> Références <small>Les références sont définies pour toute la configuration active</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    
+                    
+                  <div class="clearfix"></div>
+                  </div>
+                </div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12 col-xs-12">
+		              <div class="x_panel">
+                  <div class="x_title">
+                    <h2><i class="fa fa-flash"></i> Energie <small>A définir si les lignes d'énergie sont pilotées par le système</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    
+                    
+                  <div class="clearfix"></div>
+                  </div>
+                </div>
+	</div>
+</div>
+
+{% endblock %}
+{% block botName %}{{bot.botModel}}{% endblock %}
+{% block sideBar_menu %}
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <!-- ici le menu de nav side -->
+              <div class="menu_section">
+              <h3>Contrôle direct</h3>
+              {% block mnu_part_ctrl %}{% endblock %}
+              </div>
+              <div class="menu_section">
+              <h3>Programmation</h3>
+              {% block mnu_prog %}{% endblock %}
+              </div>
+              <div class="menu_section">
+              <h3>Gestion</h3>
+              {% block mnu_management %}{% endblock %}
+              </div>
+            </div>
+{% endblock %}
+{% block profile_menu %}
+<div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="/static/images/robotLogo.PNG" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Propriétaire,</span>
+                <h2>{{bot.botOwner}}</h2>
+                
+              </div>
+              <div class="clearfix"></div>
+            </div>
+{% endblock %}

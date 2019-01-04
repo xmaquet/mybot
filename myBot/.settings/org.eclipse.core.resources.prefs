@@ -1,4 +1,9 @@
 eclipse.preferences.version=1
 encoding//myBot/models.py=utf-8
+encoding//myBot/templates/_blankModel.html=UTF-8
+encoding//myBot/templates/addControler.html=UTF-8
+encoding//myBot/templates/addPart.html=UTF-8
+encoding//myBot/templates/config.html=UTF-8
 encoding//myBot/templates/dashboard.html=UTF-8
+encoding//myBot/templates/selectBot.html=UTF-8
 encoding/<project>=UTF-8

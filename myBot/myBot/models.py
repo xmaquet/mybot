@@ -58,6 +58,7 @@ class Controler(models.Model):
     part = models.ForeignKey(
         'Part',
         on_delete=models.CASCADE,
+        verbose_name='A quelle partie appartient ce contrôleur ?'
         )
     title = models.CharField(
         max_length=50,
@@ -66,15 +67,22 @@ class Controler(models.Model):
     code = models.CharField(
         max_length=20
         )
+    address = models.CharField(
+        max_length=50,
+        null=True,
+        blank=False,
+        )
     controlerType = models.ForeignKey(
         'ControlerType',
         on_delete=models.CASCADE,
         null=True,
+        verbose_name='type de contrôleur',
         )
     interface = models.ForeignKey(
         'Interface',
         on_delete=models.CASCADE,
         null=True,
+        verbose_name='type d\'interface',
         )
     def __str__(self):
         return self.title
@@ -85,11 +93,6 @@ class Interface(models.Model):
         null=False,
         default='undefined',
         verbose_name = "intitulé",
-        )
-    address = models.CharField(
-        max_length=50,
-        null=False,
-        default='undefined',
         )
     code = models.CharField(
         max_length=20,
@@ -133,7 +136,18 @@ class Device(models.Model):
     code = models.CharField(
         max_length=20
         )
-    pinNum = models.PositiveIntegerField()
+    pinNum = models.PositiveIntegerField(
+        null=True,
+        blank=True,)
+    prefix = models.CharField(
+        max_length=10,
+        null=True,
+        blank=False,
+        default='undefined',
+        help_text="utilisé dans l\'adressage du device")
+    index = models.PositiveIntegerField(
+        null=True,
+        help_text="combiné au préfixe pour adressage")
     def __str__(self):
         return self.title
     
