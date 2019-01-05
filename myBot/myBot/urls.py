@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from myBot.views import dashboard,selectBot,addBot,delBot,logBot,config,addPart,addControler
+from myBot.views import dashboard,selectBot,addBot,delBot,logBot,config,addPart,addControler,addServo,addRelay,addSensor
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +29,7 @@ urlpatterns = [
     url('^config$',config),
     url('^addPart$',addPart),
     url('^addControler$',addControler),
-
+    url('^addServo$',addServo),
+    url('^addRelay$',addRelay),
+    url('^addSensor$',addSensor),
 ]

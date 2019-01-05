@@ -53,6 +53,9 @@ class Part(models.Model):
         )
     def __str__(self):
         return self.title
+    def key(self):
+        key = "part" + str(self.id) 
+        return key
     
 class Controler(models.Model):
     part = models.ForeignKey(
@@ -94,6 +97,9 @@ class Controler(models.Model):
     def __str__(self):
         return self.title   
 
+    def key(self):
+        key = "controler" + str(self.id) 
+        return key
     
 class ControlerType(models.Model):
     brand = models.CharField(
@@ -104,6 +110,9 @@ class ControlerType(models.Model):
     maxAnalogPins = models.PositiveIntegerField()
     def __str__(self):
         return self.brand +" "+self.model
+    def key(self):
+        key = "controlerType" + str(self.id) 
+        return key
     
 class Device(models.Model):
     controler = models.ForeignKey(
@@ -125,7 +134,6 @@ class Device(models.Model):
         max_length=10,
         null=True,
         blank=False,
-        default='undefined',
         help_text="utilisé dans l\'adressage du device",
         verbose_name='préfixe pour l\'adressage',)
     index = models.PositiveIntegerField(
@@ -133,8 +141,15 @@ class Device(models.Model):
         help_text="combiné au préfixe pour adressage")
     def __str__(self):
         return self.title
+    def key(self):
+        key = "device" + str(self.id) 
+        return key
     
 class Servo(Device):
+    model = models.CharField(
+        max_length=20,
+        blank=False,
+        verbose_name = 'marque ou modèle (ou standard)',)
     rev = models.BooleanField()
     toggle = models.BooleanField()
     min = models.PositiveIntegerField(
@@ -169,15 +184,35 @@ class ServoType(models.Model):
         default='ang',) 
     def __str__(self):
         return self.type
+    def key(self):
+        key = "servoType" + str(self.id) 
+        return key
     
 class SpeedClass(models.Model):
     timeInSec = models.PositiveIntegerField()
     rotInDeg = models.PositiveIntegerField()
+    def key(self):
+        key = "speedClass" + str(self.id) 
+        return key
         
 class Sensor(Device):
     mesureUnit = models.CharField(
-        max_length=20
+        max_length=20,
+        blank = False,
+        null = True,
         )
+    def key(self):
+        key = "sensor" + str(self.id) 
+        return key
+    
+class SensorType(models.Model):
+    title = models.CharField(
+        max_length = 50,
+        blank = False,
+        null = True,)
+    def key(self):
+        key = "sensorType" + str(self.id) 
+        return key
 
 class Relay(Device):
     levelList = (
@@ -188,7 +223,12 @@ class Relay(Device):
         max_length=5,
         choices = levelList,
         default='Low',
+        verbose_name='niveau fermé',
+        help_text='précise le niveau à donner à la broche pour fermer le relais'
         )
+    def key(self):
+        key = "relay" + str(self.id) 
+        return key
     
 class PowerLine(models.Model):
     title = models.CharField(
@@ -200,6 +240,10 @@ class PowerLine(models.Model):
         )
     def __str__(self):
         return self.title
+    
+    def key(self):
+        key = "powerLine" + str(self.id) 
+        return key
     
 class Function(models.Model):
     title = models.CharField(
@@ -216,6 +260,9 @@ class Function(models.Model):
         )
     def __str__(self):
         return self.title
+    def key(self):
+        key = "function" + str(self.id) 
+        return key
     
 class Service(models.Model):
     title = models.CharField(
@@ -229,4 +276,7 @@ class Service(models.Model):
         )
     def __str__(self):
         return self.title
+    def key(self):
+        key = "service" + str(self.id) 
+        return key
     

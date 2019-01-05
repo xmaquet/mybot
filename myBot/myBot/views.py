@@ -1,8 +1,7 @@
 
 from django.shortcuts import render,redirect
-from myBot.forms import BotAddForm,PartAddForm,ControlerAddForm
-from myBot.models import Bot, Part, Controler
-
+from myBot.forms import BotAddForm,PartAddForm,ControlerAddForm,ServoAddForm,RelayAddForm,SensorAddForm
+from myBot.models import Bot, Part, Controler,ControlerType, ServoType, SpeedClass, SensorType, Servo, Relay, Sensor
 from datetime import datetime
     
 def selectBot(request):
@@ -42,16 +41,29 @@ def addBot(request):
         return render(request, 'addBot.html', {'form':form})
     
 def addPart(request):
-    if len(request.GET) > 0:
-        form = PartAddForm(request.GET)
-        if form.is_valid():
-            form.save()
-            return redirect('/config')
+    partId = request.GET['id']
+    if partId:
+        if len(request.GET) > 0:
+            form = PartAddForm(request.GET, instance=partId)
+            if form.is_valid():
+                form.save()
+                return redirect('/config')
+            else:
+                return render(request,'addPart.html', {'form':form})
         else:
-            return render(request,'addPart.html', {'form':form})
+            form = PartAddForm()
+            return render(request, 'addPart.html', {'form':form})
     else:
-        form = PartAddForm()
-        return render(request, 'addPart.html', {'form':form})
+        if len(request.GET) > 0:
+            form = PartAddForm(request.GET)
+            if form.is_valid():
+                form.save()
+                return redirect('/config')
+            else:
+                return render(request,'addPart.html', {'form':form})
+        else:
+            form = PartAddForm()
+            return render(request, 'addPart.html', {'form':form})
 
 def addControler(request):
     if len(request.GET) > 0:
@@ -64,6 +76,43 @@ def addControler(request):
     else:
         form = ControlerAddForm()
         return render(request, 'addControler.html', {'form':form})
+    
+def addServo(request):
+    if len(request.GET) > 0:
+        form = ServoAddForm(request.GET)
+        if form.is_valid():
+            form.save()
+            return redirect('/config')
+        else:
+            return render(request,'addServo.html', {'form':form})
+    else:
+        form = ServoAddForm()
+        return render(request, 'addServo.html', {'form':form})
+    
+def addRelay(request):
+    if len(request.GET) > 0:
+        form = RelayAddForm(request.GET)
+        if form.is_valid():
+            form.save()
+            return redirect('/config')
+        else:
+            return render(request,'addRelay.html', {'form':form})
+    else:
+        form = RelayAddForm()
+        return render(request, 'addRelay.html', {'form':form})
+    
+def addSensor(request):
+    if len(request.GET) > 0:
+        form = SensorAddForm(request.GET)
+        if form.is_valid():
+            form.save()
+            return redirect('/config')
+        else:
+            return render(request,'addSensor.html', {'form':form})
+    else:
+        form = SensorAddForm()
+        return render(request, 'addSensor.html', {'form':form})
+    
     
 def dashboard(request):
     if 'logged_bot_id' in request.session:
@@ -81,11 +130,20 @@ def config(request):
         bot = Bot.objects.get(pk=botId)
         parts = Part.objects.filter(bot_id=botId)
         controlers = Controler.objects.all()
+        servoTypes = ServoType.objects.all()
+        speedClasses = SpeedClass.objects.all()
+        sensorTypes = SensorType.objects.all()
+        controlerTypes = ControlerType.objects.all()      
         
         return render(request, 'config.html',
                     {'current_date_time':datetime.now,
-                     'bot':bot,
-                     'parts':parts,
-                     'controlers':controlers,})
+                     'bot' : bot,
+                     'parts' : parts,
+                     'controlers' : controlers,
+                     'servoTypes' : servoTypes,
+                     'speedClasses' : speedClasses,
+                     'sensorTypes' : sensorTypes,
+                     'controlerTypes' : controlerTypes,
+                     })
     else:
         return redirect('/selectBot')  
