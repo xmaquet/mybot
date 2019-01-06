@@ -200,6 +200,7 @@ class Sensor(Device):
         max_length=20,
         blank = False,
         null = True,
+        verbose_name='unité de mesure'
         )
     def key(self):
         key = "sensor" + str(self.id) 
