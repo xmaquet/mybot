@@ -77,8 +77,7 @@
                         <a href="/addRelay"><button type="button" class="btn btn-primary btn-xs"><span class="fa fa-plus"></span>Ajouter un Relais</button></a>
                         <a href="/addSensor"><button type="button" class="btn btn-primary btn-xs"><span class="fa fa-plus"></span>Ajouter un Senseur</button></a>
                         </p>
-                        <ul>
-                        	
+                        <ul>                        	
                         </ul>                                               
                         </div>
                       </div>
@@ -121,14 +120,25 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <div class="accordion" id="refs" role="tablist" aria-multiselectable="true">
-                    	<div class="panel">
-                    		<a class="panel-heading collapsed" role="tab" id="HServoType" data-toggle="collapse" data-parent="#refs" href="#ServoType" aria-expanded="false" aria-controls="ServoType">
-                          <h4 class="panel-title">Types de Servo</h4>
-                        </a>
-                        <div id="ServoType" class="panel-collapse collapse" role="tabpanel" aria-labelledby="HServoType" aria-expanded="false" style="height: 0px;">
-                          <div class="panel-body">
-							<ul>
+                  <div class="col-xs-2">
+                      <!-- required for floating -->
+                      <!-- Nav tabs -->
+                      <ul class="nav nav-tabs tabs-left">
+                        <li class="active"><a href="#servoType" data-toggle="tab" aria-expanded="true"> Types de Servo</a>
+                        </li>
+                        <li class=""><a href="#speedClass" data-toggle="tab" aria-expanded="false"> Classes de vitesse (Servo)</a>
+                        </li>
+                        <li class=""><a href="#sensorType" data-toggle="tab" aria-expanded="false"> Types de Senseur</a>
+                        </li>
+                        <li class=""><a href="#controlerType" data-toggle="tab" aria-expanded="false"> Types de Contrôleur</a>
+                        </li>
+                      </ul>
+                   </div>
+				<div class="col-xs-10">
+                      <!-- Tab panes -->
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="servoType">
+                            <ul>
 								{% if servoTypes %}
 									{% for servoType in servoTypes %}
 										<li><span class="fa fa-key"></span> {{servoType.type}}</li>
@@ -136,17 +146,10 @@
 								{% else %}
 									<b>Aucun type de servo n'a été défini</b>
 								{% endif %}
-							</ul>
-                          </div>
+							</ul>                
                         </div>
-                    	</div>
-                    	<div class="panel">
-                    		<a class="panel-heading collapsed" role="tab" id="HSpeedClass" data-toggle="collapse" data-parent="#refs" href="#SpeedClass" aria-expanded="false" aria-controls="SpeedClass">
-                          <h4 class="panel-title">Classes de Vitesse (Servo)</h4>
-                        </a>
-                        <div id="SpeedClass" class="panel-collapse collapse" role="tabpanel" aria-labelledby="HSpeedClass" aria-expanded="false" style="height: 0px;">
-                          <div class="panel-body">
-							<ul>
+                        <div class="tab-pane" id="speedClass">
+                            <ul>
 								{% if speedClasses %}
 									{% for speedClasse in speedClasses %}
 										<li><span class="fa fa-key"></span> {{speedClasse.timeInSec}}s / {{speedClasse.rotInDeg}}°</li>
@@ -154,17 +157,10 @@
 								{% else %}
 									<b>Aucune classe de vitesse n'a été définie</b>
 								{% endif %}
-							</ul>
-                          </div>
+							</ul>                                      
                         </div>
-                    	</div>
-                    	<div class="panel">
-                    		<a class="panel-heading collapsed" role="tab" id="HSensorType" data-toggle="collapse" data-parent="#refs" href="#SensorType" aria-expanded="false" aria-controls="SensorType">
-                          <h4 class="panel-title">Types de Senseur</h4>
-                        </a>
-                        <div id="SensorType" class="panel-collapse collapse" role="tabpanel" aria-labelledby="HSensorType" aria-expanded="false" style="height: 0px;">
-                          <div class="panel-body">
-							<ul>
+                        <div class="tab-pane" id="sensorType">
+                        <ul>
 								{% if sensorTypes %}
 									{% for sensorType in sensorTypes %}
 										<li><span class="fa fa-key"></span> {{sensorType.title}}</li>
@@ -172,17 +168,10 @@
 								{% else %}
 									<b>Aucun type de senseur n'a été défini</b>
 								{% endif %}
-							</ul>
-                          </div>
+							</ul>                                             
                         </div>
-                    	</div>
-                    	<div class="panel">
-                    		<a class="panel-heading collapsed" role="tab" id="HControlerType" data-toggle="collapse" data-parent="#refs" href="#ControlerType" aria-expanded="false" aria-controls="ControlerType">
-                          <h4 class="panel-title">Types de Contrôleur</h4>
-                        </a>
-                        <div id="ControlerType" class="panel-collapse collapse" role="tabpanel" aria-labelledby="HControlerType" aria-expanded="false" style="height: 0px;">
-                          <div class="panel-body">
-							<ul>
+                        <div class="tab-pane" id="controlerType">
+                           <ul>
 								{% if controlerTypes %}
 									{% for controlerType in controlerTypes %}
 										<li><span class="fa fa-code-fork"></span> {{controlerType.brand}} {{controlerType.model}}</li>
@@ -190,11 +179,10 @@
 								{% else %}
 									<b>Aucun type de contrôleur n'a été défini</b>
 								{% endif %}
-							</ul>
-                          </div>
+							</ul>                                         
                         </div>
-                    	</div>
-                    </div>                    
+                      </div>
+                    </div>                   
                   <div class="clearfix"></div>
                   </div>
                 </div>

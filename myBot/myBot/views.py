@@ -133,7 +133,11 @@ def config(request):
         servoTypes = ServoType.objects.all()
         speedClasses = SpeedClass.objects.all()
         sensorTypes = SensorType.objects.all()
-        controlerTypes = ControlerType.objects.all()      
+        controlerTypes = ControlerType.objects.all()
+        servos = Servo.objects.all()
+        relays = Relay.objects.all()
+        sensors = Sensor.objects.all()
+              
         
         return render(request, 'config.html',
                     {'current_date_time':datetime.now,
@@ -144,6 +148,10 @@ def config(request):
                      'speedClasses' : speedClasses,
                      'sensorTypes' : sensorTypes,
                      'controlerTypes' : controlerTypes,
+                     'servos' : servos,
+                     'relays' : relays,
+                     'sensors' : sensors,
+                     
                      })
     else:
         return redirect('/selectBot')  

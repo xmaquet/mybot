@@ -239,6 +239,16 @@ class PowerLine(models.Model):
     code = models.CharField(
         max_length=20
         )
+    maxCurrent = models.DecimalField(
+        max_digits=5,
+        decimal_places=1,
+        help_text='unité = A',
+         verbose_name='courant maximal prévu',
+         null=True,
+         blank=False,
+         default=0,)
+       
+        
     def __str__(self):
         return self.title
     
