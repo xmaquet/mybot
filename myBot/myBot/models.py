@@ -190,16 +190,20 @@ class ServoType(models.Model):
         help_text='la classe de vitesse est indispensable pour moduler la vitesse du servo'
         )
     def __str__(self):
-        return self.type
+        return self.model
     def key(self):
         key = "servoType" + str(self.id) 
         return key
     
 class SpeedClass(models.Model):
+    title = models.CharField(
+        max_length = 50,
+        blank = False,
+        null = True,)
     timeInSec = models.PositiveIntegerField(
         verbose_name='temps en secondes',)
     move = models.PositiveIntegerField(
-        verbose_name='mouvement',
+        verbose_name='valeur du mouvement',
         null = True)
     unit = models.CharField(
         max_length = 20,

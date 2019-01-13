@@ -47,41 +47,36 @@ def addBot(request):
         return render(request, 'addBot.html', {'form':form})
     
 def addPart(request):
-    partId = request.GET['id']
-    if partId:
-        if len(request.GET) > 0:
-            form = PartAddForm(request.GET, instance=partId)
-            if form.is_valid():
-                form.save()
-                return redirect('/config')
-            else:
-                return render(request,'structure/addPart.html', {'form':form})
+    if 'logged_bot_id' in request.session:
+        botId = request.session['logged_bot_id']
+        bot = Bot.objects.get(pk=botId)
+        form = PartAddForm(request.GET)
+        if form.is_valid():
+            form.save()
+            return redirect('/config')
         else:
-            form = PartAddForm()
-            return render(request, 'structure/addPart.html', {'form':form})
+            return render(request,'structure/addPart.html', {'form':form,
+                                                             'bot' : bot,})
     else:
-        if len(request.GET) > 0:
-            form = PartAddForm(request.GET)
-            if form.is_valid():
-                form.save()
-                return redirect('/config')
-            else:
-                return render(request,'structure/addPart.html', {'form':form})
-        else:
-            form = PartAddForm()
-            return render(request, 'structure/addPart.html', {'form':form})
+        form = PartAddForm()
+        return render(request, 'structure/addPart.html', {'form':form,
+                                                          'bot' : bot,})
 
 def addControler(request):
-    if len(request.GET) > 0:
+    if 'logged_bot_id' in request.session:
+        botId = request.session['logged_bot_id']
+        bot = Bot.objects.get(pk=botId)
         form = ControlerAddForm(request.GET)
         if form.is_valid():
             form.save()
             return redirect('/config')
         else:
-            return render(request,'structure/addControler.html', {'form':form})
+            return render(request,'structure/addControler.html', {'form':form,
+                                                                  'bot' : bot})
     else:
         form = ControlerAddForm()
-        return render(request, 'structure/addControler.html', {'form':form})
+        return render(request, 'structure/addControler.html', {'form':form,
+                                                               'bot' : bot})
     
 def addServo(request):
     if len(request.GET) > 0:

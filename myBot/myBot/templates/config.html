@@ -41,7 +41,7 @@
                           	<li>
                           	{% include "widgets/button_modal.html" with modal_class=part.key button_text=part.title button_icon="fa fa-cube" %}
                           	{% include "widgets/modal_small.html" with modal_class=part.key  modal_title=part.title modal_body="widgets/part_model.html" %}                         	
-                          	<a href="/addPart?id={{part.id}}"> Editer | </a><a href="#"> Supprimer</a></li>
+                          	<a href="/editPart?id={{part.id}}"> Editer | </a><a href="#"> Supprimer</a></li>
                           {% endfor %}
                           {% else %}
                           Aucune partie n'a été définie pour ce bot !
