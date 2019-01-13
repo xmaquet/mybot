@@ -1,5 +1,5 @@
 
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from myBot.forms import BotAddForm,PartAddForm,ControlerAddForm,ServoAddForm,RelayAddForm,SensorAddForm
 from myBot.models import Bot, Part, Controler,ControlerType, ServoType, SpeedClass, SensorType, Servo, Relay, Sensor
 from datetime import datetime
@@ -28,6 +28,12 @@ def delBot(request):
                   {'listBots':bots},
                   )
     
+def editBot(request):
+    bots = Bot.objects.all()
+    return render(request, 'editBot.html',
+                  {'listBots':bots},
+                  )
+    
 def addBot(request):
     if len(request.GET) > 0:
         form = BotAddForm(request.GET)
@@ -49,10 +55,10 @@ def addPart(request):
                 form.save()
                 return redirect('/config')
             else:
-                return render(request,'addPart.html', {'form':form})
+                return render(request,'structure/addPart.html', {'form':form})
         else:
             form = PartAddForm()
-            return render(request, 'addPart.html', {'form':form})
+            return render(request, 'structure/addPart.html', {'form':form})
     else:
         if len(request.GET) > 0:
             form = PartAddForm(request.GET)
@@ -60,10 +66,10 @@ def addPart(request):
                 form.save()
                 return redirect('/config')
             else:
-                return render(request,'addPart.html', {'form':form})
+                return render(request,'structure/addPart.html', {'form':form})
         else:
             form = PartAddForm()
-            return render(request, 'addPart.html', {'form':form})
+            return render(request, 'structure/addPart.html', {'form':form})
 
 def addControler(request):
     if len(request.GET) > 0:
@@ -72,10 +78,10 @@ def addControler(request):
             form.save()
             return redirect('/config')
         else:
-            return render(request,'addControler.html', {'form':form})
+            return render(request,'structure/addControler.html', {'form':form})
     else:
         form = ControlerAddForm()
-        return render(request, 'addControler.html', {'form':form})
+        return render(request, 'structure/addControler.html', {'form':form})
     
 def addServo(request):
     if len(request.GET) > 0:
@@ -84,10 +90,11 @@ def addServo(request):
             form.save()
             return redirect('/config')
         else:
-            return render(request,'addServo.html', {'form':form})
+            return render(request,'structure/addServo.html', {'form':form})
     else:
         form = ServoAddForm()
-        return render(request, 'addServo.html', {'form':form})
+        return render(request, 'structure/addServo.html', {'form':form})
+
     
 def addRelay(request):
     if len(request.GET) > 0:
@@ -96,10 +103,10 @@ def addRelay(request):
             form.save()
             return redirect('/config')
         else:
-            return render(request,'addRelay.html', {'form':form})
+            return render(request,'structure/addRelay.html', {'form':form})
     else:
         form = RelayAddForm()
-        return render(request, 'addRelay.html', {'form':form})
+        return render(request, 'structure/addRelay.html', {'form':form})
     
 def addSensor(request):
     if len(request.GET) > 0:
@@ -108,10 +115,10 @@ def addSensor(request):
             form.save()
             return redirect('/config')
         else:
-            return render(request,'addSensor.html', {'form':form})
+            return render(request,'structure/addSensor.html', {'form':form})
     else:
         form = SensorAddForm()
-        return render(request, 'addSensor.html', {'form':form})
+        return render(request, 'structure/addSensor.html', {'form':form})
     
     
 def dashboard(request):

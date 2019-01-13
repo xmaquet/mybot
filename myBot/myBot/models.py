@@ -117,7 +117,8 @@ class ControlerType(models.Model):
 class Device(models.Model):
     controler = models.ForeignKey(
         'Controler',
-        on_delete=models.CASCADE,)
+        on_delete=models.CASCADE,
+        verbose_name='contrôleur de rattachement')
     title = models.CharField(
         max_length=50,
         verbose_name = "intitulé",
@@ -146,10 +147,7 @@ class Device(models.Model):
         return key
     
 class Servo(Device):
-    model = models.CharField(
-        max_length=20,
-        blank=False,
-        verbose_name = 'marque ou modèle (ou standard)',)
+
     rev = models.BooleanField()
     toggle = models.BooleanField()
     min = models.PositiveIntegerField(
@@ -166,22 +164,31 @@ class Servo(Device):
         'ServoType',
         on_delete=models.CASCADE,
         null=True,
+        verbose_name='type de servo',
         )
-    speedClass = models.ForeignKey(
-        'SpeedClass',
-        on_delete=models.CASCADE,
-        null=True,
-        )
+
 
 class ServoType(models.Model):
     typeList = (
         ('lin','Linéaire'),
         ('ang','Angulaire'),
         )
+    model = models.CharField(
+        max_length=20,
+        blank=False,
+        verbose_name = 'marque ou modèle (ou standard)',
+        null=True,)
     type = models.CharField(
         max_length=3,
         choices=typeList,
         default='ang',) 
+    speedClass = models.ForeignKey(
+        'SpeedClass',
+        on_delete=models.CASCADE,
+        null=True,
+        verbose_name='classe de vitesse',
+        help_text='la classe de vitesse est indispensable pour moduler la vitesse du servo'
+        )
     def __str__(self):
         return self.type
     def key(self):
@@ -189,8 +196,16 @@ class ServoType(models.Model):
         return key
     
 class SpeedClass(models.Model):
-    timeInSec = models.PositiveIntegerField()
-    rotInDeg = models.PositiveIntegerField()
+    timeInSec = models.PositiveIntegerField(
+        verbose_name='temps en secondes',)
+    move = models.PositiveIntegerField(
+        verbose_name='mouvement',
+        null = True)
+    unit = models.CharField(
+        max_length = 20,
+        blank = False,
+        null = True,
+        verbose_name = 'unité de mouvement')
     def key(self):
         key = "speedClass" + str(self.id) 
         return key
