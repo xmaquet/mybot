@@ -9,10 +9,18 @@ def selectBot(request):
     if 'logged_bot_id' in request.session:
         botId = request.session['logged_bot_id']
         bot = Bot.objects.get(pk=botId)
-    return render(request, 'selectBot.html',
+        if bot:
+            return render(request, 'selectBot.html',
                   {'listBots':bots,
                    'bot':bot},
                   )
+        else:
+            return render(request,'selectBot.html',
+                          {'listeBots':bots})
+    else:
+        return render(request,'selectBot.html',
+                          {'listeBots':bots})
+        
 
 def logBot(request):
     if len(request.GET) > 0:
@@ -22,21 +30,74 @@ def logBot(request):
     else:
         return render(request,'selectBot.html')
     
-def delBot(request):
+def deleteBot(request):
+    if request.method == "GET":
+        botLogged = request.session['logged_bot_id']
+        botId = request.GET['id']
+        if botLogged == botId:
+            message = "Vous ne pouvez pas supprimer le bot actif"
+            return redirect('/selectBot')
+        else:
+            bot = Bot.objects.get(pk=botId)
+            ident = bot.botModel+'('+bot.botName+')'
+            return render(request, 'deleteBot.html',
+                {'botId':botId,
+                'ident':ident
+                })
+    else:
+        if request.method == "POST":
+            botId = request.POST['id']
+            bot = Bot.objects.get(pk=botId)
+            bot.delete()
+            message = "Bot supprimé"
+            return redirect('/selectBot')
+        else:
+            message = "Aucune action possible"
+            return redirect('/selectBot')
+        
+def selectEditBot(request):
+    action = request.GET['action']
+    verb = request.GET['verb']
     bots = Bot.objects.all()
-    return render(request, 'delBot.html',
-                  {'listBots':bots},
+    return render(request, 'selectEditBot.html',
+                  {'listBots':bots,
+                   'action':action,
+                   'verb':verb}
                   )
-    
 def editBot(request):
-    bots = Bot.objects.all()
-    return render(request, 'editBot.html',
-                  {'listBots':bots},
-                  )
-    
+    if request.method == "GET":
+        action = request.GET['action']
+        if len(request.GET) > 0 and  action:
+            botId = request.GET['id']
+            bot = Bot.objects.get(pk=botId)
+            form = BotAddForm( instance=bot)
+            if  action == "edit":
+                return render(request, 'editBot.html', {'form': form,
+                                                        'botId':botId})
+            else:   
+                if action == "delete":
+                    return redirect('/deleteBot?id='+botId)
+                else:
+                    message = "Aucune action possible"
+                    return redirect('/selectBot')                                
+    else:
+        if request.method == "POST":
+            botId = request.POST['id']
+            bot = get_object_or_404(Bot, pk=botId) 
+            form = BotAddForm(request.POST, instance = bot)
+            if form.is_valid():
+                form.save()
+                message = "Le bot a été modifié"
+                return redirect('/selectBot')  
+            else:
+                form = BotAddForm(instance=bot)
+                return render(request, 'editBot.html', {'form': form})
+        else:
+            return redirect('selectBot.html')
+
 def addBot(request):
     if len(request.GET) > 0:
-        form = BotAddForm(request.GET)
+        form = BotAddForm(request.GET or None, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/selectBot')

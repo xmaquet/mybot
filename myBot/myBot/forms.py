@@ -12,7 +12,7 @@ class BotAddForm(forms.ModelForm):
 class PartAddForm(forms.ModelForm):
     class Meta:
         model = Part 
-        fields = '__all__' 
+        fields = ('bot','title',) 
         
 class ControlerAddForm(forms.ModelForm):
     class Meta:

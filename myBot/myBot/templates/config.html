@@ -35,7 +35,7 @@
                           <p class="lead">Les parties permettent de regrouper des éléments du Bot
                           <a href="/addPart"><button type="button" class="btn btn-primary btn-xs"><span class="fa fa-plus"></span>Ajouter une partie</button></a>
                           </p>
-                          <ul>
+						<!--<ul>
                           {% if parts %}
                           {% for part in parts %}
                           	<li>
@@ -46,13 +46,32 @@
                           {% else %}
                           Aucune partie n'a été définie pour ce bot !
                           {% endif %}  
-                          </ul>                       
+                          </ul>  -->
+                           {% if parts %}
+                          {% for part in parts %}
+                          	<div class="row">
+                          	<div class="animated flipInY col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          		<div class="tile-stats">
+                          			<div class="icon">
+                          				<i class="fa fa-cube"></i>
+                          			</div>
+                          				<div class="count">{{ part.title }}</div>
+                          				<h3></h3>
+                          				<p><a href="/editPart?id={{part.id}}"> Editer | </a><a href="#"> Supprimer</a></li></p>
+                          			
+                          		</div>
+                          	</div>
+                          	</div>
+                          {% endfor %}
+                          {% else %}
+                          Aucune partie n'a été définie pour ce bot !
+                          {% endif %}                        
                         </div>
                         <div class="tab-pane" id="controls">
                         <p class="lead">Les contrôleurs et leurs équipements orchestrent les fonctions 
                         <a href="/addControler"><button type="button" class="btn btn-primary btn-xs"><span class="fa fa-plus"></span>Ajouter un contrôleur</button></a>
                         </p>
-                        <ul>
+                        <!--  <ul>
                         	{% for part in parts %}
                           		<li><span class="fa fa-cube"></span> {{part.title}}
                           			<ul>
@@ -67,7 +86,41 @@
                           			</ul>
                           		</li>
                           {% endfor %} 
-                        </ul>                                               
+                        </ul> -->
+                        {% for part in parts %}
+                          		<div class="row">
+                          	<div class="animated flipInY col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          		<div class="tile-stats">
+                          			<div class="icon">
+                          				<i class="fa fa-cube"></i>
+                          			</div>
+                          				<div class="count">{{ part.title }}</div>
+                          				<h3></h3>
+                          				<div class="row">
+                          			{% for controler in controlers %}
+                          			
+                          					{% if controler.part_id == part.id %}
+                          						
+                          	<div class="animated flipInY col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                          		<div class="tile-stats">
+                          			<div class="icon">
+                          				<i class="fa fa-code-fork"></i>
+                          			</div>
+                          				<div class="count" style="font-size: 1.5em;">{{ controler.title }}</div>
+                          				<h3></h3>
+                          				<p><a href="/editPart?id={{part.id}}"> Editer | </a><a href="#"> Supprimer</a></li></p>
+                          			
+                          		</div>
+                          	</div>
+                          	
+                          					{% endif %}
+                          					
+                          				{% endfor %}	</div>
+                          			
+                          		</div>
+                          	</div>
+                          	</div>
+                          {% endfor %}                                              
                         </div>
                         <div class="tab-pane" id="devices">
                         <p class="lead">Les équipements permettent de créer des actions liées aux fonctions 

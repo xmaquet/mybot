@@ -31,7 +31,6 @@ class Bot(models.Model):
         help_text="Local : le Bot est sur la même machine que le système "
         )
     image = models.ImageField(
-        max_length=255,
         blank=True,
         null=True,)
     
@@ -106,6 +105,9 @@ class ControlerType(models.Model):
         max_length=20,)
     model = models.CharField(
         max_length=20,)
+    image = models.ImageField(
+        blank=True,
+        null=True,)
     maxDigitalPins = models.PositiveIntegerField()
     maxAnalogPins = models.PositiveIntegerField()
     def __str__(self):

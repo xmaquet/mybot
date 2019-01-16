@@ -17,23 +17,11 @@
 			</div>
 			<div class="x_content">
 			<br>
-			<form class="form-horizontal form-label-left" action="editBot" method="post">
-				<div class="form-group">
-				<label class="control-label col-md-3 col-sm-3 col-xs-12">Liste</label>
-				<div class="col-md-9 col-sm-9 col-xs-12">
-                          <div class="input-group">
-                            <select id="editBotSelect" class="form-control">
-                            {% for bot in listBots %}
-                            <option>{{bot.botModel}}({{bot.botName}})</option>
-							{% endfor %}
-                          </select>
-                            <span class="input-group-btn">
-                               <button type="submit" class="btn btn-warning">Modifier</button>
-                            </span>
-                          </div>                      
-                </div>
-				</div>				
-			</form>			
+				<form class="form-horizontal form-label-left" action="editBot" method="post">{% csrf_token %}
+				<input type="hidden" name="id" value="{{botId}}">
+				{{form.as_p}}
+				<button type="submit" class="btn btn-success">Modifier</button>
+				</form>
 			</div>
 		</div>
 	</div>

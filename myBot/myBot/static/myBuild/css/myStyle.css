@@ -8,3 +8,10 @@ ul {
 	font-size: 10px;
 	font-style: italic;
 }
+
+.botIdentity {
+	border: 0;
+    background: none;
+    padding-top: 8px;
+    font-weight: bold;
+}
