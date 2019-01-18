@@ -33,7 +33,6 @@
                       <div class="tab-content">
                         <div class="tab-pane active" id="parts">
                           <p class="lead">Les parties permettent de regrouper des éléments du Bot
-                          <a href="/addPart"><button type="button" class="btn btn-primary btn-xs"><span class="fa fa-plus"></span>Ajouter une partie</button></a>
                           </p>
 						<!--<ul>
                           {% if parts %}
@@ -57,7 +56,7 @@
                           			</div>
                           				<div class="count">{{ part.title }}</div>
                           				<h3></h3>
-                          				<p><a href="/editPart?id={{part.id}}"> Editer | </a><a href="#"> Supprimer</a></li></p>
+                          				<p></p>
                           			
                           		</div>
                           	</div>
@@ -69,7 +68,6 @@
                         </div>
                         <div class="tab-pane" id="controls">
                         <p class="lead">Les contrôleurs et leurs équipements orchestrent les fonctions 
-                        <a href="/addControler"><button type="button" class="btn btn-primary btn-xs"><span class="fa fa-plus"></span>Ajouter un contrôleur</button></a>
                         </p>
                         <!--  <ul>
                         	{% for part in parts %}
@@ -96,7 +94,7 @@
                           			</div>
                           				<div class="count">{{ part.title }}</div>
                           				<h3></h3>
-                          				<div class="row">
+                          				
                           			{% for controler in controlers %}
                           			
                           					{% if controler.part_id == part.id %}
@@ -108,14 +106,14 @@
                           			</div>
                           				<div class="count" style="font-size: 1.5em;">{{ controler.title }}</div>
                           				<h3></h3>
-                          				<p><a href="/editPart?id={{part.id}}"> Editer | </a><a href="#"> Supprimer</a></li></p>
+                          				<p></p>
                           			
                           		</div>
                           	</div>
                           	
                           					{% endif %}
                           					
-                          				{% endfor %}	</div>
+                          				{% endfor %}	
                           			
                           		</div>
                           	</div>
@@ -126,9 +124,7 @@
                         <p class="lead">Les équipements permettent de créer des actions liées aux fonctions 
                         </p>
                         <p>
-                        <a href="/addServo"><button type="button" class="btn btn-primary btn-xs"><span class="fa fa-plus"></span>Ajouter un Servo</button></a>
-                        <a href="/addRelay"><button type="button" class="btn btn-primary btn-xs"><span class="fa fa-plus"></span>Ajouter un Relais</button></a>
-                        <a href="/addSensor"><button type="button" class="btn btn-primary btn-xs"><span class="fa fa-plus"></span>Ajouter un Senseur</button></a>
+                        
                         </p>
                         <ul>                        	
                         </ul>                                               
