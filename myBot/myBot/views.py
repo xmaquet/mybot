@@ -5,30 +5,28 @@ from datetime import datetime
     
 def selectBot(request):
     bots = Bot.objects.all()
-    if bots:
-        if 'logged_bot_id' in request.session:
-            botId = request.session['logged_bot_id']
-            bot = Bot.objects.get(pk=botId)
-            if bot:
-                return render(request, 'selectBot.html',
+    if 'logged_bot_id' in request.session:
+        botId = request.session['logged_bot_id']
+        bot = Bot.objects.filter(id=botId)
+        if bot:
+            return render(request, 'selectBot.html',
                       {'listBots':bots,
                        'bot':bot},
                       )
-            else:
-                if bots:
-                    return render(request,'selectBot.html',
-                              {'listBots':bots})
-                else:
-                    return render(request,'selecBot.html')
-    
         else:
             if bots:
                 return render(request,'selectBot.html',
                               {'listBots':bots})
             else:
-                    return render(request,'selecBot.html')
+                return render(request,'selecBot.html')
+    
     else:
-        return render(request,'selecBot.html')
+        if bots:
+            return render(request,'selectBot.html',
+                              {'listBots':bots})
+        else:
+            return render(request,'selecBot.html')
+    
     
 def logBot(request):
     if len(request.GET) > 0:

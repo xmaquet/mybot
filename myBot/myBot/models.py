@@ -3,6 +3,9 @@ from django.db import models
 
 
 class Bot(models.Model):
+    class Meta:
+        verbose_name = 'robot'
+        
     botModel = models.CharField(
         max_length=50,
         verbose_name = "modèle",
@@ -39,13 +42,18 @@ class Bot(models.Model):
         )
     
     def __str__(self):
-        return self.botModel
+        a = self.botModel
+        b = self.botName
+        return a+'('+b+')'
     
 class Part(models.Model):
+    class Meta:
+        verbose_name = 'partie'
+        
     bot = models.ForeignKey(
         'Bot',
         on_delete=models.CASCADE,
-        verbose_name = "bot",)
+        verbose_name = "robot",)
     title = models.CharField(
         max_length=50,
         verbose_name = "intitulé",
@@ -57,6 +65,9 @@ class Part(models.Model):
         return key
     
 class Controler(models.Model):
+    class Meta:
+        verbose_name = 'contrôleur'
+        
     part = models.ForeignKey(
         'Part',
         on_delete=models.CASCADE,
@@ -75,16 +86,25 @@ class Controler(models.Model):
         null=True,
         verbose_name='type de contrôleur',
         )
-    typeList = (
-        ('usb','USB-Serial'),
-        ('ip-eth','IP on Ethernet'),
-        ('ip-wifi','IP on Wifi'),
+    serial = models.ForeignKey(
+        'Serial',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        verbose_name='interface série',
         )
-    interface = models.CharField(
-        max_length=10,
-        choices=typeList,
-        default='usb',
-        verbose_name='type d\'interface',
+    tcpip = models.ForeignKey(
+        'TcpIp',
+        on_delete=models.CASCADE,
+        null=True,
+        blank = True,
+        verbose_name='interface TCP/IP',)
+    powerLine = models.ForeignKey(
+        'PowerLine',
+        verbose_name='Ligne d\'alimentation',
+        on_delete=models.CASCADE,
+        null = True,
+        blank = False,
         )
     def __str__(self):
         return self.title   
@@ -94,6 +114,8 @@ class Controler(models.Model):
         return key
     
 class ControlerType(models.Model):
+    class Meta:
+        verbose_name = 'type de contrôleur'
     brand = models.CharField(
         max_length=20,)
     model = models.CharField(
@@ -110,6 +132,8 @@ class ControlerType(models.Model):
         return key
     
 class Device(models.Model):
+    class Meta:
+        verbose_name = 'équipement'
     controler = models.ForeignKey(
         'Controler',
         on_delete=models.CASCADE,
@@ -142,7 +166,8 @@ class Device(models.Model):
         return key
     
 class Servo(Device):
-
+    class Meta:
+        verbose_name = 'servo'
     rev = models.BooleanField(
         verbose_name='reverse',
         help_text='inverser le sens de fonctionnement')
@@ -168,6 +193,8 @@ class Servo(Device):
 
 
 class ServoType(models.Model):
+    class Meta:
+        verbose_name = 'type de servo'
     typeList = (
         ('lin','Linéaire'),
         ('ang','Angulaire'),
@@ -195,6 +222,8 @@ class ServoType(models.Model):
         return key
     
 class SpeedClass(models.Model):
+    class Meta:
+        verbose_name = 'classe de vitesse'
     title = models.CharField(
         max_length = 50,
         blank = False,
@@ -214,17 +243,29 @@ class SpeedClass(models.Model):
         return key
         
 class Sensor(Device):
+    class Meta:
+        verbose_name = 'senseur'
     mesureUnit = models.CharField(
         max_length=20,
         blank = False,
         null = True,
         verbose_name='unité de mesure'
         )
+    sensorType = models.ForeignKey(
+        'SensorType',
+        on_delete=models.CASCADE,
+        null=True,
+        verbose_name='type de senseur',
+        blank=True,
+        )
     def key(self):
         key = "sensor" + str(self.id) 
         return key
+ 
     
 class SensorType(models.Model):
+    class Meta:
+        verbose_name = 'type de senseur'
     title = models.CharField(
         max_length = 50,
         blank = False,
@@ -232,8 +273,12 @@ class SensorType(models.Model):
     def key(self):
         key = "sensorType" + str(self.id) 
         return key
+    def __str__(self):
+        return self.title
 
 class Relay(Device):
+    class Meta:
+        verbose_name = 'relais'
     levelList = (
         ('Low','Niveau bas'),
         ('High','Niveau haut'),
@@ -250,6 +295,9 @@ class Relay(Device):
         return key
     
 class PowerLine(models.Model):
+    class Meta:
+        verbose_name = 'ligne d\'alimentation'
+    
     title = models.CharField(
         max_length=50,
         verbose_name = "intitulé",
@@ -275,6 +323,8 @@ class PowerLine(models.Model):
         return key
     
 class Function(models.Model):
+    class Meta:
+        verbose_name = 'fonction'
     title = models.CharField(
         max_length=50,
         verbose_name = "intitulé",
@@ -294,6 +344,8 @@ class Function(models.Model):
         return key
     
 class Service(models.Model):
+    class Meta:
+        verbose_name = 'service'
     title = models.CharField(
         max_length=50,
         verbose_name = "intitulé",
@@ -310,6 +362,8 @@ class Service(models.Model):
         return key
 
 class Interface(models.Model):
+    class Meta:
+        verbose_name = 'interface'
     title = models.CharField(
         max_length=50,
         verbose_name='intitulé',
@@ -318,6 +372,8 @@ class Interface(models.Model):
         return self.title
     
 class Serial(Interface):
+    class Meta:
+        verbose_name = 'interface Série'
     baudrateList = (
         ('9600','9600'),
         ('19200','19200'),
@@ -408,3 +464,32 @@ class Serial(Interface):
         default = 'None',
         help_text = ' Set exclusive access mode (POSIX only). A port cannot be opened in exclusive access mode if it is already open in exclusive access mode.',
         )
+    def __str__(self):
+        return self.port
+    
+class TcpIp(Interface):
+    class Meta:
+        verbose_name = 'interface TCP/IP'
+        
+class Action(models.Model):
+    class Meta:
+        verbose_name = 'action'
+        
+    title = models.CharField(
+        max_length = 20,
+        null = False,
+        blank = False,
+        verbose_name = 'intitulé',
+        )
+    function = models.ForeignKey(
+        'function',
+        on_delete=models.CASCADE,
+        verbose_name = 'fonction',
+        )
+    device = models.ForeignKey(
+        'device',
+         on_delete=models.CASCADE,
+         verbose_name = 'équipement'
+        )
+    def __str__(self):
+        return self.title
