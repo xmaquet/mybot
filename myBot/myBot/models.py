@@ -69,13 +69,6 @@ class Controler(models.Model):
     code = models.CharField(
         max_length=20
         )
-    address = models.CharField(
-        max_length=50,
-        null=True,
-        blank=False,
-        verbose_name = "adresse",
-        help_text = 'paste or select',
-        )
     controlerType = models.ForeignKey(
         'ControlerType',
         on_delete=models.CASCADE,
@@ -150,8 +143,12 @@ class Device(models.Model):
     
 class Servo(Device):
 
-    rev = models.BooleanField()
-    toggle = models.BooleanField()
+    rev = models.BooleanField(
+        verbose_name='reverse',
+        help_text='inverser le sens de fonctionnement')
+    toggle = models.BooleanField(
+        verbose_name='trigger',
+        help_text='le servo se comporte comme un interrupteur')
     min = models.PositiveIntegerField(
         null=False,
         default=0,
@@ -311,4 +308,103 @@ class Service(models.Model):
     def key(self):
         key = "service" + str(self.id) 
         return key
+
+class Interface(models.Model):
+    title = models.CharField(
+        max_length=50,
+        verbose_name='intitulé',
+        ) 
+    def __str__(self):
+        return self.title
     
+class Serial(Interface):
+    baudrateList = (
+        ('9600','9600'),
+        ('19200','19200'),
+        ('57600','57600'),
+        ('115200','115200'),)
+    bytesizeList = (
+        ('FIVEBITS','5'),
+        ('SIXBITS','6'),
+        ('SEVENBITS','7'),
+        ('EIGHTBITS','8'),)
+    parityList = (
+        ('PARITY_NONE','None'),
+        ('PARITY_EVEN','Even'),
+        ('PARITY_ODD','Odd'),
+        ('PARITY_MARK','Mark'),
+        ('PARITY_SPACE','Space'),)
+    stopbitsList =(
+        ('STOPBITS_ONE','1'),
+        ('STOPBITS_ONE_POINT_FIVE','1,5'),
+        ('STOPBITS_TWO','2'),)
+    port = models.CharField(
+        max_length = 100,
+        verbose_name = 'nom de l\'interface',
+        help_text ='depending on operating system. e.g. /dev/ttyUSB0 on GNU/Linux or COM3 on Windows.',
+        null=False,
+        blank = False,
+        )
+    baudrate = models.CharField(
+        max_length=10,
+        choices = baudrateList,
+        null = False,
+        blank = False,
+        default = '115200',
+        verbose_name='débit (baudrate)'
+        )
+    bytesize = models.CharField(
+        max_length=100,
+        choices = bytesizeList,
+        null = False,
+        blank = False,
+        default = '8',
+        verbose_name = 'octets de données (bytesize)')
+    parity = models.CharField(
+        max_length = 100,
+        choices = parityList,
+        null = False,
+        blank = False,
+        default = 'None')
+    stopbits = models.CharField(
+        max_length = 20,
+        choices = stopbitsList,
+        null = False,
+        blank = False,
+        default = '1',
+        verbose_name = 'bits de stop')
+    timeout = models.CharField(
+        max_length = 20,
+        null = False,
+        blank = False,
+        default = 'None',
+        verbose_name = 'timeout = 0: non-blocking mode, return immediately in any case, returning zero or more, up to the requested number of bytes',
+        help_text = 'Set a read timeout value.'),
+    xonxoff = models.BooleanField(
+        default = False,
+        verbose_name = 'xonxoff : Enable software flow control',)
+    rtscts = models.BooleanField(
+        default = False,
+        verbose_name = 'Enable hardware (RTS/CTS) flow control.',)
+    dsrdtr = models.BooleanField(
+        default = False,
+        verbose_name = 'Enable hardware (DSR/DTR) flow control.',)
+    write_timeout = models.CharField(
+        max_length = 20,
+        null = False,
+        blank = False,
+        help_text = 'Set a write timeout value',
+        default='None',)
+    inter_byte_timeout = models.CharField(
+        max_length = 20,
+        null = False,
+        blank = False,
+        help_text = 'Inter-character timeout, None to disable (default).',
+        default='None',)
+    exclusive = models.CharField(
+        max_length = 20,
+        null = False,
+        blank = False,
+        default = 'None',
+        help_text = ' Set exclusive access mode (POSIX only). A port cannot be opened in exclusive access mode if it is already open in exclusive access mode.',
+        )
