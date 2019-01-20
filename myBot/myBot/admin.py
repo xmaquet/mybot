@@ -1,5 +1,5 @@
 from django.contrib import admin
-from myBot.models import Bot,Part,Controler,Servo,ServoType,SpeedClass,Sensor,Relay,PowerLine,Function,Service,ControlerType
+from myBot.models import Bot,Part,Controler,Servo,ServoType,SpeedClass,Sensor,Relay,PowerLine,Function,Service,ControlerType, Serial
 admin.site.register(Bot)
 admin.site.register(Part)
 admin.site.register(Controler)
@@ -12,4 +12,5 @@ admin.site.register(PowerLine)
 admin.site.register(Function)
 admin.site.register(Service)
 admin.site.register(ControlerType)
+admin.site.register(Serial)
 
